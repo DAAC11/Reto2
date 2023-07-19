@@ -92,6 +92,14 @@ public class UserService {
                 if ((user.getName() != null) && (!user.getName().equals(""))) {
                     if (!userDb.getName().equals(user.getName()))  userDb.setName(user.getName());
                 }
+                //reto3
+                if ((user.getBirthtDay() != null) && (!user.getBirthtDay().equals(""))) {
+                    if (!userDb.getBirthtDay().equals(user.getBirthtDay())) userDb.setBirthtDay(user.getBirthtDay());
+                }
+                if ((user.getMonthBirthtDay() != null) && (!user.getMonthBirthtDay().equals(""))) {
+                    if (!userDb.getMonthBirthtDay().equals(user.getMonthBirthtDay())) userDb.setMonthBirthtDay(user.getMonthBirthtDay());
+                }
+                //*reto3
                 if ((user.getAddress() != null) && (!user.getAddress().equals(""))) {
                     if (!userDb.getAddress().equals(user.getAddress())) userDb.setAddress(user.getAddress());
                 }
@@ -132,5 +140,21 @@ public class UserService {
         }else{
             return false;
         }
+    }
+
+    // Reto3
+
+    public User getZoneCoordinator(String zone){
+        Optional<User> coorEncontrado = repositorio.getUserByZoneAndType(zone,"COORD");
+        if (coorEncontrado.isPresent()){
+            return coorEncontrado.get();
+        }else {
+            return new User();
+        }
+    }
+
+    public boolean zoneHasSalesMen(String zone){
+        List<User> salesMen = repositorio.findAllByZoneAndType(zone,"ASE");
+        return !salesMen.isEmpty();
     }
 }
